@@ -36,7 +36,7 @@ const PermittereAnsatte = (props: Props) => {
     };
 
     const leggTilSoknadInngang = (index: number): React.ReactNode | null => {
-        return index == 0 ? (
+        return index === 0 ? (
             <div className={cls.element('knapp-seksjon')}>
                 <KnappBase
                     aria-label="Gå til søknaden"
