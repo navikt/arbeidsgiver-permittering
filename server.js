@@ -70,6 +70,7 @@ const querySanity = () =>
         sanityQueryTypes()[3]
     }'] | order(_type, priority)`;
 
+//set header field
 const setHeaders = (responsheader) => {
     responsheader.setHeader('Access-Control-Allow-Origin', '*');
     responsheader.setHeader(
