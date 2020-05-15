@@ -36,6 +36,7 @@ const backupCacheMeny = new NodeCache({ stdTTL: 0, checkperiod: 0 });
 const mainCacheInnhold = new NodeCache({ stdTTL: 600, checkperiod: 60 });
 const backupCacheInnhold = new NodeCache({ stdTTL: 0, checkperiod: 0 });
 
+//server response to pipeline
 server.get('/arbeidsgiver-permittering/internal/isAlive', (req, res) =>
     res.sendStatus(200)
 );
