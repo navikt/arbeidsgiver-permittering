@@ -1,4 +1,5 @@
 'use strict';
+// imports
 const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
@@ -8,6 +9,8 @@ const jsdom = require('jsdom');
 const NodeCache = require('node-cache');
 const VAULT_PATH = '/var/run/secrets/nais.io/vault/enviroment.env';
 const sanityClient = require('@sanity/client');
+
+// env
 require('console-stamp')(console, '[HH:MM:ss.l]');
 require('dotenv').config({
     path: process.env.NODE_ENV === 'production' ? VAULT_PATH : '.env',
