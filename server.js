@@ -121,6 +121,7 @@ const fetchInnhold = (res) => {
         });
 };
 
+// sanity innhold
 server.get(`${BASE_URL}/innhold`, (req, res) => {
     setHeaders(res);
     const cacheInnhold = mainCacheInnhold.get(mainCacheInnholdKey);
