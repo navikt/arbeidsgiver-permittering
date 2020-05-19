@@ -16,7 +16,7 @@ interface PermitteringsLenke {
 const lenker: PermitteringsLenke[] = [
     {
         hopplenke: '#hvordanPermittere',
-        lenketekst: 'Hvordan permittere ansatte?',
+        lenketekst: 'Hvordan permittere ansatte? test123',
     },
     {
         hopplenke: '#narSkalJegUtbetaleLonn',
