@@ -86,7 +86,7 @@ const Meny = () => {
         };
         const throttleSetFocusOnMenuLinkevent = debounce(
             () => setFocusIndex(),
-            50
+            10
         );
 
         const setMenuHeightPosition = () => {
