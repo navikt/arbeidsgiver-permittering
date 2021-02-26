@@ -5,6 +5,8 @@ WORKDIR /app
 COPY server ./server
 COPY build/ ./build
 
-EXPOSE 3000
+WORKDIR /app/server
+RUN yarn install --frozen-lockfile
 
-CMD ["node", "server/server.js"]
+EXPOSE 3000
+CMD ["node", "server.js"]
