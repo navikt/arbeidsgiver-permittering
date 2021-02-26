@@ -46,6 +46,7 @@
         "nav-frontend-tekstomrade": "^2.0.43",
         "nav-frontend-typografi": "^3.0.3",
         "nav-frontend-typografi-style": "^1.0.22",
+        "node-fetch": "^2.6.1",
         "prop-types": "^15.7.2",
         "react": "^17.0.1",
         "react-app-polyfill": "^2.0.0",
