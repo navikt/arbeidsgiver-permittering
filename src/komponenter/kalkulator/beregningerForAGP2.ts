@@ -36,24 +36,17 @@ export const finnInformasjonAGP2 = (
     dagensDato: Dayjs,
     antallDagerFørAGP2Inntreffer: number
 ): InformasjonOmAGP2Status => {
-    const statusPermittering1muligAGP2 = finnOversiktOverPermitteringOgFraværGitt18mnd(
-        tidligsteDatoAGP2, // 1. juni
-        tidslinje
-    );
     const antallBruktePermitteringsdagerPer1Juni = finnBruktePermitteringsDager(
         tidslinje,
         tidligsteDatoAGP2
     );
     const antallGjenværendeDagerFørAGP2Per1Juni =
-        antallDagerFørAGP2Inntreffer -
-        finnBruktePermitteringsDager(tidslinje, tidligsteDatoAGP2);
+        antallDagerFørAGP2Inntreffer - antallBruktePermitteringsdagerPer1Juni;
     if (antallGjenværendeDagerFørAGP2Per1Juni <= 0) {
         //case1
         return {
             sluttDato: tidligsteDatoAGP2,
-            brukteDager:
-                statusPermittering1muligAGP2.dagerPermittert -
-                statusPermittering1muligAGP2.dagerAnnetFravær,
+            brukteDager: antallBruktePermitteringsdagerPer1Juni,
             gjenståendePermitteringsDager: 0,
             type: ArbeidsgiverPeriode2Resulatet.NÅDD_AGP2,
         };
