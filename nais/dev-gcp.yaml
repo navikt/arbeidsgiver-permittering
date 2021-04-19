@@ -24,5 +24,6 @@ spec:
     outbound:
       external:
         - host: sanity.io
+        - host: dekoratoren.dev.nav.no
   envFrom:
     - secret: arbeidsgiver-permittering-secrets
