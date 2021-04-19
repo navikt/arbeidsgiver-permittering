@@ -10,7 +10,7 @@ spec:
   team: arbeidsgiver
   port: 3000
   ingresses:
-    - https://arbeidsgiver.dev.nav.no/arbeidsgiver-permittering
+    - https://arbeidsgiver-permittering.dev.nav.no/arbeidsgiver-permittering
   liveness:
     path: /arbeidsgiver-permittering/internal/isReady
     initialDelay: 20
