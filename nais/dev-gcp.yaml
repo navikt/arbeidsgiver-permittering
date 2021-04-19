@@ -24,8 +24,3 @@ spec:
     outbound:
       external:
         - host: sanity.io
-  env:
-    {{#each env}}
-    - name: "{{@key}}"
-      value: "{{this}}"
-    {{/each}}
