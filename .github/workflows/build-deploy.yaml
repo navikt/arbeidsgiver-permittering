@@ -84,6 +84,6 @@ jobs:
           env:
               APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
               CLUSTER: dev-gcp
-              VAR: version=${{ env.IMAGE }}
+              VAR: version=${{ env.APP_IMAGE }}
               RESOURCE: nais/dev-gcp.yaml
               PRINT_PAYLOAD: true
