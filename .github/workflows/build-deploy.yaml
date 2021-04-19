@@ -79,11 +79,11 @@ jobs:
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v1
-        - uses: nais/deploy/actions/deploy@v1
-          env:
-              APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-              CLUSTER: dev-gcp
-              VAR: version=${{ env.APP_IMAGE }}
-              RESOURCE: nais/dev-gcp.yaml
-              PRINT_PAYLOAD: true
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          VAR: version=${{ env.APP_IMAGE }}
+          RESOURCE: nais/dev-gcp.yaml
+          PRINT_PAYLOAD: true
