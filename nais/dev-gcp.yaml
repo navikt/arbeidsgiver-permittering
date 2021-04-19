@@ -24,3 +24,5 @@ spec:
     outbound:
       external:
         - host: sanity.io
+  envFrom:
+    - secret: arbeidsgiver-permittering-secrets
