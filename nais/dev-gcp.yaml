@@ -1,0 +1,31 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: arbeidsgiver-permittering
+  namespace: arbeidsgiver
+  labels:
+    team: arbeidsgiver
+spec:
+  image: {{ version }}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - https://arbeidsgiver.dev.nav.no/arbeidsgiver-permittering
+  liveness:
+    path: /arbeidsgiver-permittering/internal/isReady
+    initialDelay: 20
+  readiness:
+    path: /arbeidsgiver-permittering/internal/isReady
+    initialDelay: 20
+  replicas:
+    min: 2
+    max: 2
+  accessPolicy:
+    outbound:
+      external:
+        - host: sanity.io
+  env:
+    {{#each env}}
+    - name: "{{@key}}"
+      value: "{{this}}"
+    {{/each}}
