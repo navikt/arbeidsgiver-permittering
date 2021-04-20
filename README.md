@@ -2,7 +2,7 @@
 
 Informasjonssider til https://nav.no rundt permittering for arbeidsgivere.
 
-Utviklingsmiljø: `https://arbeidsgiver-q.nav.no/arbeidsgiver-permittering`
+Utviklingsmiljø: `https://arbeidsgiver-permittering.dev.nav.no/arbeidsgiver-permittering`
 
 Produksjonsmiljø: `https://arbeidsgiver.nav.no/arbeidsgiver-permittering`
 <br /><br />
@@ -10,7 +10,7 @@ Produksjonsmiljø: `https://arbeidsgiver.nav.no/arbeidsgiver-permittering`
 Applikasjonen bygger på Node, React og Typescript.
 
 
-For å komme i gang med applikasjonen, last ned repo 
+For å komme i gang med applikasjonen, last ned repo
 <br /><br />
 
 ##### Start med å installere avhengigheter `yarn install`
