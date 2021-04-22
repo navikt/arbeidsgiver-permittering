@@ -23,7 +23,7 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: sanity.io
+        - host: ueom5842.api.sanity.io
         - host: dekoratoren.dev.nav.no
   envFrom:
     - secret: arbeidsgiver-permittering-secrets
