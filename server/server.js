@@ -12,6 +12,7 @@ const server = express();
 const PORT = process.env.PORT || 3000;
 const buildPath = path.join(__dirname, '../build');
 const BASE_PATH = '/arbeidsgiver-permittering';
+const KALKULATOR_URL = process.env.KALKULATOR_URL;
 
 const sendDataObj = (json) => ({
     data: json,
@@ -105,6 +106,9 @@ const startServer = () => {
     );
     server.get(`${BASE_PATH}/internal/isReady`, (req, res) =>
         res.sendStatus(200)
+    );
+    server.get(`${BASE_PATH}/kalkulator`, (req, res) =>
+        res.redirect(KALKULATOR_URL)
     );
 
     server.get(BASE_PATH + '/*', async (req, res) => {

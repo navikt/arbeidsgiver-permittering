@@ -32,3 +32,5 @@ spec:
       value: "600"
     - name: SANITY_CACHE_CHECK
       value: "60"
+    - name: KALKULATOR_URL
+      value: https://permittering-kalkulator.dev.nav.no/permittering-kalkulator/
