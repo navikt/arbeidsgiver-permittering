@@ -29,6 +29,6 @@ spec:
     - secret: arbeidsgiver-permittering-secrets
   env:
     - name: SANITY_CACHE_TTL
-      value: 600
+      value: "600"
     - name: SANITY_CACHE_CHECK
-      value: 60
+      value: "60"

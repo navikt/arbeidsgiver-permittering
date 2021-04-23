@@ -90,7 +90,7 @@ jobs:
 
   deploy-to-prod-gcp:
     name: Deploy to prod-gcp
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/migrate-to-gcp'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
