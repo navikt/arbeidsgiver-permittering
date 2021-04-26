@@ -107,9 +107,9 @@ const startServer = () => {
     server.get(`${BASE_PATH}/internal/isReady`, (req, res) =>
         res.sendStatus(200)
     );
-    // server.get(`${BASE_PATH}/kalkulator`, (req, res) =>
-    //     res.redirect(KALKULATOR_URL)
-    // );
+    server.get(`${BASE_PATH}/kalkulator`, (req, res) =>
+        res.redirect(KALKULATOR_URL)
+    );
 
     server.get(BASE_PATH + '/*', async (req, res) => {
         try {
