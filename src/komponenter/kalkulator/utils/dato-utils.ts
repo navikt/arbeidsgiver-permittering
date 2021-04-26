@@ -130,7 +130,7 @@ export const datoIntervallOverlapperMedPerioder = (
         return false;
     }
     definertePerioder.forEach((periode) => {
-        if (getAntallOverlappendeDager(periode, definertFraværsintervall) > 0) {
+        if (toPerioderOverlapper(definertFraværsintervall, periode)) {
             finnesOverLapp = true;
         }
     });
@@ -259,6 +259,16 @@ const leggTilHverdager = (dato: Dayjs, antall: number): Dayjs => {
         dag = getNesteHverdag(dag);
     }
     return dag;
+};
+
+const toPerioderOverlapper = (
+    periode1: DatoIntervall,
+    periode2: DatoIntervall
+) => {
+    if (periode1.erLøpende && periode2.erLøpende) {
+        return true;
+    }
+    return getAntallOverlappendeDager(periode1, periode2) > 0;
 };
 
 export const get5FørsteHverdager = (dato: Dayjs): Dayjs[] => {
