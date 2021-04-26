@@ -73,39 +73,32 @@ jobs:
       - name: Sett miljøvariabel COMMIT
         run: echo "COMMIT=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-  deploy-to-dev-sbs:
-      name: Deploy to dev-sbs
-      # Redigér her hvis du vil deploye en branch til dev. F.eks. slik:
-      # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/<navn-på-branch>'
-      if: github.ref == 'refs/heads/master'
-      needs: compile-test-and-build
-      runs-on: ubuntu-latest
-      steps:
-          - uses: actions/checkout@v2
-          - uses: nais/deploy/actions/deploy@v1
-            env:
-                APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-                CLUSTER: dev-sbs
-                RESOURCE: nais/nais.yaml
-                PRINT_PAYLOAD: true
-                VARS: nais/dev-env.yaml
-                IMAGE: ${{ env.APP_IMAGE }}
-                REF: ${{ env.COMMIT }}
+  deploy-to-dev-gcp:
+    name: Deploy to dev-gcp
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/migrate-to-gcp'
+    needs: compile-test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          VAR: version=${{ env.APP_IMAGE }}
+          RESOURCE: nais/dev-gcp.yaml
+          PRINT_PAYLOAD: true
 
-  deploy-to-prod-sbs:
-      name: Deploy to prod-sbs
-      if: github.ref == 'refs/heads/master'
-      needs: compile-test-and-build
-      runs-on: ubuntu-latest
-      steps:
-          - uses: actions/checkout@v2
-          - uses: nais/deploy/actions/deploy@v1
-            env:
-                APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-                CLUSTER: prod-sbs
-                RESOURCE: nais/nais.yaml
-                PRINT_PAYLOAD: true
-                VARS: nais/prod-env.yaml
-                IMAGE: ${{ env.APP_IMAGE }}
-                REF: ${{ env.COMMIT }}
-
+  deploy-to-prod-gcp:
+    name: Deploy to prod-gcp
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/migrate-to-gcp'
+    needs: compile-test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          VAR: version=${{ env.APP_IMAGE }}
+          RESOURCE: nais/prod-gcp.yaml
+          PRINT_PAYLOAD: true

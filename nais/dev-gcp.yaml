@@ -1,0 +1,36 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: arbeidsgiver-permittering
+  namespace: arbeidsgiver
+  labels:
+    team: arbeidsgiver
+spec:
+  image: {{ version }}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - https://arbeidsgiver-permittering.dev.nav.no/arbeidsgiver-permittering
+  liveness:
+    path: /arbeidsgiver-permittering/internal/isReady
+    initialDelay: 20
+  readiness:
+    path: /arbeidsgiver-permittering/internal/isReady
+    initialDelay: 20
+  replicas:
+    min: 2
+    max: 2
+  accessPolicy:
+    outbound:
+      external:
+        - host: ueom5842.api.sanity.io
+        - host: dekoratoren.dev.nav.no
+  envFrom:
+    - secret: arbeidsgiver-permittering-secrets
+  env:
+    - name: SANITY_CACHE_TTL
+      value: "600"
+    - name: SANITY_CACHE_CHECK
+      value: "60"
+    - name: KALKULATOR_URL
+      value: https://permittering-kalkulator.dev.nav.no/permittering-kalkulator/
