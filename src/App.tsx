@@ -38,15 +38,6 @@ const App = () => {
                                 />
                                 <Permittering />
                             </Route>
-                            <Route path={KALKULATOR_PATH} exact={true}>
-                                <Brødsmulesti
-                                    brødsmuler={[
-                                        HOVEDSIDE_BRØDSMULE,
-                                        KALKULATOR_BRØDSMULE,
-                                    ]}
-                                />
-                                <Kalkulator />
-                            </Route>
                         </Redirect>
                     </ContextProvider>
                 </Switch>
