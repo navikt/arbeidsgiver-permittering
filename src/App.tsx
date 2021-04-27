@@ -5,7 +5,6 @@ import Permittering from './komponenter/Permittering';
 import './assets/styling/dekorator-override.less';
 import { skrivTilMalingBesokerSide } from './utils/amplitudeUtils';
 import ContextProvider from './komponenter/ContextProvider';
-import Kalkulator from './komponenter/kalkulator/kalkulator';
 import { Brødsmulesti } from './komponenter/Brødsmulesti';
 import { Breadcrumb } from '@navikt/nav-dekoratoren-moduler';
 import './App.less';
