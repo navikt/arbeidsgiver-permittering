@@ -22,7 +22,5 @@ module.exports = {
             },
         },
     },
-    plugins: [
-        { plugin: CracoLessPlugin },
-    ],
+    plugins: [{ plugin: CracoLessPlugin }],
 };

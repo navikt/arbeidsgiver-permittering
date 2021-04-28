@@ -6,6 +6,7 @@ import './permittering.less';
 import SistOppdatertInfo from './SistOppdatertInfo';
 import { PermitteringContext } from './ContextProvider';
 import { componentMap, Seksjon, seksjoner } from './ContextTypes';
+import NavFrontendSpinner from 'nav-frontend-spinner';
 export const permitteringClassName = 'permittering';
 const permittering = BEMHelper('permittering');
 
@@ -24,7 +25,13 @@ const Permittering = () => {
                     className={permittering.element('wrapper')}
                     id={permittering.element('wrapper')}
                 >
-                    <Meny />
+                    {permitteringInnhold.hvordanPermittere.length != 0 ? (
+                        <Meny />
+                    ) : (
+                        <div style={{ margin: '7rem 0' }}>
+                            <NavFrontendSpinner type="XXL" />
+                        </div>
+                    )}
                     <div className={permittering.element('info-container')}>
                         <SistOppdatertInfo
                             className={permitteringClassName}
@@ -33,7 +40,8 @@ const Permittering = () => {
                         {seksjoner.map((seksjon: Seksjon, index: number) => {
                             const Component = componentMap[seksjon.id];
 
-                            return (
+                            return permitteringInnhold[seksjon.id].length !=
+                                0 ? (
                                 <Component
                                     className={permittering.className}
                                     content={permitteringInnhold[seksjon.id]}
@@ -41,7 +49,7 @@ const Permittering = () => {
                                     id={seksjon.id}
                                     key={index}
                                 />
-                            );
+                            ) : null;
                         })}
                     </div>
                 </div>
