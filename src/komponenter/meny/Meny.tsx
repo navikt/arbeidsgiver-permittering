@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BEMHelper from '../../utils/bem';
 import debounce from 'lodash.debounce';
 import Menyknapp from './menyknapp/Menyknapp';
@@ -13,12 +13,10 @@ import {
     recalibrateMenuPosition,
     windowWidthIsDesktopSize,
 } from '../../utils/menu-utils';
-import { PermitteringContext } from '../ContextProvider';
 import { setFocusIndex } from '../../utils/menu-lenker-utils';
 import { Seksjon, seksjoner } from '../ContextTypes';
 
 const Meny = () => {
-    const context = useContext(PermitteringContext);
     const cls = BEMHelper('meny');
     const [appDisplayMobileMenu, setAppDisplayMobileMenu] = useState<boolean>(
         !windowWidthIsDesktopSize()
@@ -34,7 +32,7 @@ const Meny = () => {
 
     useEffect(() => {
         setHeightPosition(getContainerHeight());
-    }, [context.permitteringInnhold.vanligeSpr]);
+    }, [window.innerHeight]);
 
     useEffect(() => {
         const recalebrateMenuPos = (): void =>
@@ -44,7 +42,6 @@ const Meny = () => {
                 setHeightPosition,
                 SetWidthPosition
             );
-
         const throttleSetFocusOnMenuLinkevent = debounce(
             () => setFocusIndex(setSectionInFocus),
             10
@@ -55,14 +52,12 @@ const Meny = () => {
                 return setHeightPosition(adjustMenuHeight());
             }
         };
-
         window.onscroll = function () {
             throttleSetFocusOnMenuLinkevent();
             setMenuHeightPosition();
         };
 
         window.addEventListener('resize', recalebrateMenuPos);
-
         return () => window.removeEventListener('resize', recalebrateMenuPos);
     }, [appDisplayMobileMenu]);
 
