@@ -162,16 +162,18 @@ const alertstripeSerializer = (alert: AlertTypeNode) => {
                     : 'advarsel'
             }
         >
-            {alert.node.innhold.map((block: any, index: any) => {
-                return (
-                    <React.Fragment key={index}>
-                        <BlockContent
-                            blocks={block}
-                            serializers={serializers}
-                        />
-                    </React.Fragment>
-                );
-            })}
+            {alert.node.innhold
+                ? alert.node.innhold.map((block: any, index: any) => {
+                      return (
+                          <React.Fragment key={index}>
+                              <BlockContent
+                                  blocks={block}
+                                  serializers={serializers}
+                              />
+                          </React.Fragment>
+                      );
+                  })
+                : ''}
         </AlertStripe>
     );
 };
