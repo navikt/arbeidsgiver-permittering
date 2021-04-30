@@ -1,5 +1,6 @@
 const CracoLessPlugin = require('craco-less');
 const path = require('path');
+const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
 
 module.exports = {
     webpack: {
@@ -22,5 +23,12 @@ module.exports = {
             },
         },
     },
-    plugins: [{ plugin: CracoLessPlugin }],
+    plugins: [
+        { plugin: CracoLessPlugin },
+        {
+            plugin: decoratorhtmlwebpackplugin(
+                process.env.ENABLE_EXTERNAL_MENU
+            ),
+        },
+    ],
 };
