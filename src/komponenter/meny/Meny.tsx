@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BEMHelper from '../../utils/bem';
 import debounce from 'lodash.debounce';
 import Menyknapp from './menyknapp/Menyknapp';
@@ -15,9 +15,11 @@ import {
 } from '../../utils/menu-utils';
 import { setFocusIndex } from '../../utils/menu-lenker-utils';
 import { Seksjon, seksjoner } from '../ContextTypes';
+import { PermitteringContext } from '../ContextProvider';
 
 const Meny = () => {
     const cls = BEMHelper('meny');
+    const { cmsInnholdStatus } = useContext(PermitteringContext);
     const [appDisplayMobileMenu, setAppDisplayMobileMenu] = useState<boolean>(
         !windowWidthIsDesktopSize()
     );
@@ -32,7 +34,7 @@ const Meny = () => {
 
     useEffect(() => {
         setHeightPosition(getContainerHeight());
-    }, [window.innerHeight]);
+    }, [cmsInnholdStatus]);
 
     useEffect(() => {
         const recalebrateMenuPos = (): void =>

@@ -1,19 +1,54 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BEMHelper from '../utils/bem';
 import Banner from './banner/Banner';
 import Meny from './meny/Meny';
 import './permittering.less';
 import SistOppdatertInfo from './SistOppdatertInfo';
-import { PermitteringContext } from './ContextProvider';
+import { PermitteringContext, Status } from './ContextProvider';
 import { componentMap, Seksjon, seksjoner } from './ContextTypes';
 import NavFrontendSpinner from 'nav-frontend-spinner';
+
 export const permitteringClassName = 'permittering';
 const permittering = BEMHelper('permittering');
 
 const Permittering = () => {
-    const { permitteringInnhold, sistOppdatert } = useContext(
-        PermitteringContext
-    );
+    const {
+        permitteringInnhold,
+        sistOppdatert,
+        setCMSLasteStatus,
+    } = useContext(PermitteringContext);
+
+    const [
+        permitteringSeksjoner,
+        setPermitteringSeksjoner,
+    ] = useState<React.ReactNode | null>(null);
+
+    useEffect(() => {
+        const innholdHentet = (): boolean =>
+            seksjoner.every((s) => permitteringInnhold[s.id].length != 0);
+
+        const mapCmsInnhold = (): void => {
+            const reactNodes = seksjoner.map(
+                (seksjon: Seksjon, index: number) => {
+                    const Component = componentMap[seksjon.id];
+                    return (
+                        <Component
+                            className={permittering.className}
+                            content={permitteringInnhold[seksjon.id]}
+                            navn={seksjon.navn}
+                            id={seksjon.id}
+                            key={index}
+                        />
+                    );
+                }
+            );
+            setPermitteringSeksjoner(reactNodes);
+            setCMSLasteStatus(Status.INNHOLD_KLART);
+        };
+        if (innholdHentet()) {
+            mapCmsInnhold();
+        }
+    }, [permitteringInnhold]);
 
     return (
         <div className={permittering.className}>
@@ -37,20 +72,7 @@ const Permittering = () => {
                             className={permitteringClassName}
                             content={sistOppdatert}
                         />
-                        {seksjoner.map((seksjon: Seksjon, index: number) => {
-                            const Component = componentMap[seksjon.id];
-
-                            return permitteringInnhold[seksjon.id].length !=
-                                0 ? (
-                                <Component
-                                    className={permittering.className}
-                                    content={permitteringInnhold[seksjon.id]}
-                                    navn={seksjon.navn}
-                                    id={seksjon.id}
-                                    key={index}
-                                />
-                            ) : null;
-                        })}
+                        {permitteringSeksjoner}
                     </div>
                 </div>
             </div>
