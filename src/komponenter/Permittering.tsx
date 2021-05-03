@@ -28,22 +28,24 @@ const Permittering = () => {
             seksjoner.every((s) => permitteringInnhold[s.id].length != 0);
 
         const mapCmsInnhold = (): void => {
-            const reactNodes = seksjoner.map(
-                (seksjon: Seksjon, index: number) => {
-                    const Component = componentMap[seksjon.id];
-                    return (
-                        <Component
-                            className={permittering.className}
-                            content={permitteringInnhold[seksjon.id]}
-                            navn={seksjon.navn}
-                            id={seksjon.id}
-                            key={index}
-                        />
-                    );
-                }
-            );
-            setPermitteringSeksjoner(reactNodes);
-            setCMSLasteStatus(Status.INNHOLD_KLART);
+            new Promise((resolve) => {
+                const reactNodes = seksjoner.map(
+                    (seksjon: Seksjon, index: number) => {
+                        const Component = componentMap[seksjon.id];
+                        return (
+                            <Component
+                                className={permittering.className}
+                                content={permitteringInnhold[seksjon.id]}
+                                navn={seksjon.navn}
+                                id={seksjon.id}
+                                key={index}
+                            />
+                        );
+                    }
+                );
+
+                resolve(setPermitteringSeksjoner(reactNodes));
+            }).then(() => setCMSLasteStatus(Status.INNHOLD_KLART));
         };
         if (innholdHentet()) {
             mapCmsInnhold();
