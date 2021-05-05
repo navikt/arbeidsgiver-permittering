@@ -2,7 +2,6 @@ import { SanityBlockTypes, SistOppdatert } from '../sanity-blocks/sanityTypes';
 import PermittereAnsatte from './seksjoner/PermittereAnsatte';
 import FellesSeksjon from './seksjoner/FellesSeksjon';
 import VanligeSporsmal from './seksjoner/infoark-vanlige-sporsmaal/VanligeSporsmal';
-import { Status } from './ContextProvider';
 
 export interface PermitteringInnhold {
     hvordanPermittere: [] | SanityBlockTypes[];
@@ -26,8 +25,6 @@ export type SettPermitteringInnhold = <
 ) => void;
 
 export type SettSideSistOppdatert = <T extends SistOppdatert>(value: T) => void;
-
-export type SetCMSLasteStatus = <T extends Status>(status: T) => void;
 
 export const setPermitteringInnholdFraNokkelVerdi = (
     type: string,
