@@ -23,6 +23,10 @@ const Permittering = () => {
         permitteringSeksjoner,
         setPermitteringSeksjoner,
     ] = useState<React.ReactNode | null>(null);
+    const [
+        sistOppdatertSide,
+        setSistOppdatertSide,
+    ] = useState<React.ReactNode | null>(null);
     const [parsingComplete, setParsingComplete] = useStateWithPromise<boolean>(
         false
     );
@@ -46,6 +50,12 @@ const Permittering = () => {
                             />
                         );
                     }
+                );
+                setSistOppdatertSide(
+                    <SistOppdatertInfo
+                        className={permitteringClassName}
+                        content={sistOppdatert}
+                    />
                 );
                 setPermitteringSeksjoner(reactNodes);
                 await setParsingComplete(true);
@@ -78,10 +88,7 @@ const Permittering = () => {
                         </div>
                     )}
                     <div className={permittering.element('info-container')}>
-                        <SistOppdatertInfo
-                            className={permitteringClassName}
-                            content={sistOppdatert}
-                        />
+                        {sistOppdatertSide}
                         {permitteringSeksjoner}
                     </div>
                 </div>
