@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BEMHelper from '../utils/bem';
 import Banner from './banner/Banner';
 import Meny from './meny/Meny';
@@ -7,17 +7,10 @@ import SistOppdatertInfo from './SistOppdatertInfo';
 import { PermitteringContext, Status } from './ContextProvider';
 import { componentMap, Seksjon, seksjoner } from './ContextTypes';
 import NavFrontendSpinner from 'nav-frontend-spinner';
+import { useStateWithPromise } from '../utils/useEffectUtils';
 
 export const permitteringClassName = 'permittering';
 const permittering = BEMHelper('permittering');
-
-const usePrevious = (value: any) => {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    });
-    return ref.current;
-};
 
 const Permittering = () => {
     const {
@@ -30,36 +23,42 @@ const Permittering = () => {
         permitteringSeksjoner,
         setPermitteringSeksjoner,
     ] = useState<React.ReactNode | null>(null);
-    const [parsingComplete, setParsingComplete] = useState<boolean>(false);
+    const [parsingComplete, setParsingComplete] = useStateWithPromise<boolean>(
+        false
+    );
 
     useEffect(() => {
         const innholdHentet = (): boolean =>
             seksjoner.every((s) => permitteringInnhold[s.id].length != 0);
 
-        const mapCmsInnhold = (): void => {
-            const reactNodes = seksjoner.map(
-                (seksjon: Seksjon, index: number) => {
-                    const Component = componentMap[seksjon.id];
-                    return (
-                        <Component
-                            className={permittering.className}
-                            content={permitteringInnhold[seksjon.id]}
-                            navn={seksjon.navn}
-                            id={seksjon.id}
-                            key={index}
-                        />
-                    );
-                }
-            );
-            setPermitteringSeksjoner(reactNodes);
-            setParsingComplete(true);
+        const mapCmsInnhold = async (): Promise<void> => {
+            if (!parsingComplete) {
+                const reactNodes = seksjoner.map(
+                    (seksjon: Seksjon, index: number) => {
+                        const Component = componentMap[seksjon.id];
+                        return (
+                            <Component
+                                className={permittering.className}
+                                content={permitteringInnhold[seksjon.id]}
+                                navn={seksjon.navn}
+                                id={seksjon.id}
+                                key={index}
+                            />
+                        );
+                    }
+                );
+                setPermitteringSeksjoner(reactNodes);
+                await setParsingComplete(true);
+            }
         };
         if (innholdHentet()) {
-            parsingComplete
-                ? setCMSLasteStatus(Status.INNHOLD_KLART)
-                : mapCmsInnhold();
+            if (parsingComplete) {
+                setCMSLasteStatus(Status.INNHOLD_KLART);
+            } else {
+                mapCmsInnhold();
+            }
         }
-    }, [permitteringInnhold]);
+    }, [permitteringInnhold, permitteringSeksjoner]);
 
     return (
         <div className={permittering.className}>
