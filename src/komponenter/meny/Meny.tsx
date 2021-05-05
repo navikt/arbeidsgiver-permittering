@@ -19,6 +19,7 @@ import { PermitteringContext } from '../ContextProvider';
 
 const Meny = () => {
     const cls = BEMHelper('meny');
+    const { sistOppdatert } = useContext(PermitteringContext);
     const { cmsInnholdStatus } = useContext(PermitteringContext);
     const [appDisplayMobileMenu, setAppDisplayMobileMenu] = useState<boolean>(
         !windowWidthIsDesktopSize()
@@ -34,7 +35,7 @@ const Meny = () => {
 
     useEffect(() => {
         setHeightPosition(getContainerHeight());
-    }, [cmsInnholdStatus]);
+    }, [cmsInnholdStatus, sistOppdatert]);
 
     useEffect(() => {
         const recalebrateMenuPos = (): void =>
