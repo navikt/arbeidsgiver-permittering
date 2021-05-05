@@ -19,17 +19,23 @@ import { PermitteringContext } from '../ContextProvider';
 
 const Meny = () => {
     const cls = BEMHelper('meny');
+    const { sistOppdatert } = useContext(PermitteringContext);
+    const { cmsInnholdStatus } = useContext(PermitteringContext);
     const [appDisplayMobileMenu, setAppDisplayMobileMenu] = useState<boolean>(
         !windowWidthIsDesktopSize()
     );
     const [viewmobilMenu, setViewmobilMenu] = useState<boolean>(false);
     const [sectionInFocus, setSectionInFocus] = useState<number>(0);
-    const [heightPosition, setHeightPosition] = useState<number>(426);
+    const [heightPosition, setHeightPosition] = useState<number>(0);
     const [widthPosition, SetWidthPosition] = useState<number>(
         calcMenuWidthPosition()
     );
 
     const toggleButton = (): void => setViewmobilMenu(!viewmobilMenu);
+
+    useEffect(() => {
+        setHeightPosition(getContainerHeight());
+    }, [cmsInnholdStatus, sistOppdatert]);
 
     useEffect(() => {
         const recalebrateMenuPos = (): void =>
