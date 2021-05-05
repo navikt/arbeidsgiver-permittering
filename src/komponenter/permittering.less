@@ -10,6 +10,14 @@ html {
 .permittering {
     background-color: #e6e6e6;
 
+    .nav-veilederpanel {
+        padding: 0.125rem 0.125rem 0.125rem 5.5rem !important;
+
+        .nav-veileder.nav-veileder--flytende {
+            left: 0.25rem !important;
+        }
+    }
+
     .knapp {
         display: block !important;
         white-space: nowrap;
@@ -161,6 +169,13 @@ html {
     }
 
     @media (min-width: 768px) {
+        .nav-veilederpanel {
+            padding: 1.5rem 1.5rem 1.5rem 7rem !important;
+
+            .nav-veileder.nav-veileder--flytende {
+                left: 1rem !important;
+            }
+        }
         &__knapp-seksjon {
             .knapp {
                 width: 45%;
