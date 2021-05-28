@@ -84,7 +84,7 @@ const Meny = () => {
                     >
                         <div className={cls.element('content')}>
                             <Undertittel className={cls.element('tittel')}>
-                                Innhold på denne siden:
+                                Innhold på siden
                             </Undertittel>
 
                             {seksjoner

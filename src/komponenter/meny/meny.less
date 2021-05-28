@@ -45,12 +45,24 @@
     }
 
     &__content {
-        padding: 1.5rem;
         max-width: 85%;
     }
 
     &__lenke {
-        padding-top: 0.75rem;
+        display: block;
+        text-decoration: none;
+        padding: 12px 20px;
+        color: #777;
+        text-align: left;
+        height: 36px;
+        position: relative;
+        border-bottom: 1px solid #eee;
+        &:last-child {
+            border-bottom: none;
+        }
+        &:nth-child(2) {
+            border-top: 1px solid #eee;
+        }
 
         &:hover {
             transform: scale(1.05);
@@ -78,8 +90,15 @@
         margin-top: 0;
         padding-right: 2rem;
 
+        &__tittel {
+            max-width: unset;
+            padding: 12px 20px;
+        }
+
         &__container {
             padding: 1rem;
+            max-width: unset;
+            max-height: unset;
 
             &--closed {
                 transform: scale(1);
