@@ -7,15 +7,13 @@ interface Props {
     content: SanityBlockTypes;
 }
 
-const SanityBlocktype = (textblock: Props) => {
-    return (
-        <>
-            <BlockContent
-                blocks={textblock.content.content}
-                serializers={serializers}
-            />
-        </>
-    );
-};
+const SanityBlocktype = (textblock: Props) => (
+    <>
+        <BlockContent
+            blocks={textblock.content.content}
+            serializers={serializers}
+        />
+    </>
+);
 
 export default SanityBlocktype;
