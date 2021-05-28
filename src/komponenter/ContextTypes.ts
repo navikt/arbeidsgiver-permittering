@@ -2,6 +2,9 @@ import { SanityBlockTypes, SistOppdatert } from '../sanity-blocks/sanityTypes';
 import PermittereAnsatte from './seksjoner/PermittereAnsatte';
 import FellesSeksjon from './seksjoner/FellesSeksjon';
 import VanligeSporsmal from './seksjoner/infoark-vanlige-sporsmaal/VanligeSporsmal';
+import { GrMoney } from 'react-icons/gr';
+import { VscFeedback, VscQuestion, VscCalendar } from 'react-icons/vsc';
+import { BiMessageDetail } from 'react-icons/bi';
 
 export interface PermitteringInnhold {
     hvordanPermittere: [] | SanityBlockTypes[];
@@ -14,6 +17,7 @@ export interface PermitteringInnhold {
 export interface Seksjon {
     id: keyof PermitteringInnhold;
     navn: string;
+    icon: React.ReactNode;
 }
 
 export type SettPermitteringInnhold = <
@@ -64,22 +68,27 @@ export const seksjoner: Seksjon[] = [
     {
         id: 'hvordanPermittere',
         navn: 'Hvordan permittere ansatte?',
+        icon: VscFeedback,
     },
     {
         id: 'narSkalJegUtbetale',
         navn: 'Lønnsplikt ved permittering',
+        icon: GrMoney,
     },
     {
         id: 'iPermitteringsperioden',
         navn: 'I permitteringsperioden',
+        icon: VscCalendar,
     },
     {
         id: 'informasjonTilAnsatte',
         navn: 'Informasjon til ansatte',
+        icon: BiMessageDetail,
     },
     {
         id: 'vanligeSpr',
         navn: 'Vanlige spørsmål',
+        icon: VscQuestion,
     },
 ];
 

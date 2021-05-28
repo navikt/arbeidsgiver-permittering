@@ -86,32 +86,34 @@ const Meny = () => {
                             <Undertittel className={cls.element('tittel')}>
                                 Innhold på siden
                             </Undertittel>
-
-                            {seksjoner
-                                ? seksjoner.map(
-                                      (element: Seksjon, index: number) => {
-                                          return (
-                                              <Normaltekst
-                                                  className={cls.element(
-                                                      'lenke',
-                                                      sectionInFocus === index
-                                                          ? 'bold'
-                                                          : ''
-                                                  )}
-                                                  key={index}
-                                              >
-                                                  <Lenke
-                                                      href={'#'.concat(
-                                                          element.id
+                            <div className={cls.element('lenke-seksjon')}>
+                                {seksjoner
+                                    ? seksjoner.map(
+                                          (element: Seksjon, index: number) => {
+                                              return (
+                                                  <Normaltekst
+                                                      className={cls.element(
+                                                          'lenke',
+                                                          sectionInFocus ===
+                                                              index
+                                                              ? 'bold'
+                                                              : ''
                                                       )}
+                                                      key={index}
                                                   >
-                                                      {element.navn}
-                                                  </Lenke>
-                                              </Normaltekst>
-                                          );
-                                      }
-                                  )
-                                : null}
+                                                      <Lenke
+                                                          href={'#'.concat(
+                                                              element.id
+                                                          )}
+                                                      >
+                                                          {element.navn}
+                                                      </Lenke>
+                                                  </Normaltekst>
+                                              );
+                                          }
+                                      )
+                                    : null}
+                            </div>
                         </div>
                     </div>
                 </div>
