@@ -8,7 +8,6 @@ import { scrollIntoView } from '../utils/scrollIntoView';
 import { setEnv } from '../sanity-blocks/serializer';
 import {
     PermitteringInnhold,
-    SetCMSLasteStatus,
     setPermitteringInnholdFraNokkelVerdi,
     SettPermitteringInnhold,
     SettSideSistOppdatert,
@@ -18,11 +17,6 @@ interface Props {
     children: React.ReactNode;
 }
 
-export enum Status {
-    INNHOLD_KLART = 'INNHOLD_KLART',
-    INNHOLD_LASTER = 'INNHOLD_LASTER',
-}
-
 export type DocumentTypes = SanityBlockTypes;
 
 export interface Context {
@@ -30,10 +24,6 @@ export interface Context {
     sistOppdatert: SistOppdatert | null;
     settPermitteringInnhold: SettPermitteringInnhold;
     setSideSistOppdatert: SettSideSistOppdatert;
-    cmsInnholdStatus: Status;
-    setCMSLasteStatus: SetCMSLasteStatus;
-    dagensDato: Dayjs;
-    innføringsdatoAGP2: Dayjs;
 }
 
 export const PermitteringContext = React.createContext({} as Context);
@@ -46,10 +36,6 @@ const ContextProvider = (props: Props) => {
         informasjonTilAnsatte: [],
         vanligeSpr: [],
     });
-
-    const [innholdStatus, setInnholdStatus] = useState<Status>(
-        Status.INNHOLD_LASTER
-    );
 
     const [sistOppdatert, setSistOppdatert] = useState<SistOppdatert | null>(
         null
@@ -74,19 +60,11 @@ const ContextProvider = (props: Props) => {
         setSistOppdatert(value);
     };
 
-    const setCMSLasteStatus = <T extends Status>(status: T): void => {
-        setInnholdStatus(status);
-    };
-
     const contextData: Context = {
         permitteringInnhold: innhold,
         sistOppdatert,
         settPermitteringInnhold,
         setSideSistOppdatert,
-        setCMSLasteStatus,
-        cmsInnholdStatus: innholdStatus,
-        dagensDato: dagensDato,
-        innføringsdatoAGP2: dayjs('2021-06-01'),
     };
 
     useEffect(() => {
