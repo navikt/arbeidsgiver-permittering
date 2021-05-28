@@ -101,6 +101,13 @@ const Meny = () => {
                                                       )}
                                                       key={index}
                                                   >
+                                                      <span
+                                                          className={cls.element(
+                                                              'lenke-icon'
+                                                          )}
+                                                      >
+                                                          {element.icon}
+                                                      </span>
                                                       <Lenke
                                                           href={'#'.concat(
                                                               element.id

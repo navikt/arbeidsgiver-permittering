@@ -35,6 +35,15 @@
         }
     }
 
+    &__lenke-icon {
+        margin-right: 0.5rem;
+        height: 100%;
+        & > svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
     .menyknapp {
         position: absolute;
         right: 22.5%;
@@ -51,7 +60,8 @@
     }
 
     &__lenke {
-        display: block;
+        display: flex;
+        align-items: flex-start;
         text-decoration: none;
         padding: 12px 20px;
         color: #777;

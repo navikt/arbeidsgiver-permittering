@@ -2,8 +2,13 @@ import { SanityBlockTypes, SistOppdatert } from '../sanity-blocks/sanityTypes';
 import PermittereAnsatte from './seksjoner/PermittereAnsatte';
 import FellesSeksjon from './seksjoner/FellesSeksjon';
 import VanligeSporsmal from './seksjoner/infoark-vanlige-sporsmaal/VanligeSporsmal';
-import { GrMoney } from 'react-icons/gr';
-import { VscFeedback, VscQuestion, VscCalendar } from 'react-icons/vsc';
+
+import {
+    VscFeedback,
+    VscQuestion,
+    VscCalendar,
+    VscGraph,
+} from 'react-icons/vsc';
 import { BiMessageDetail } from 'react-icons/bi';
 
 export interface PermitteringInnhold {
@@ -68,27 +73,47 @@ export const seksjoner: Seksjon[] = [
     {
         id: 'hvordanPermittere',
         navn: 'Hvordan permittere ansatte?',
-        icon: VscFeedback,
+        icon: (
+            <>
+                <VscFeedback />
+            </>
+        ),
     },
     {
         id: 'narSkalJegUtbetale',
         navn: 'Lønnsplikt ved permittering',
-        icon: GrMoney,
+        icon: (
+            <>
+                <VscGraph />
+            </>
+        ),
     },
     {
         id: 'iPermitteringsperioden',
         navn: 'I permitteringsperioden',
-        icon: VscCalendar,
+        icon: (
+            <>
+                <VscCalendar />
+            </>
+        ),
     },
     {
         id: 'informasjonTilAnsatte',
         navn: 'Informasjon til ansatte',
-        icon: BiMessageDetail,
+        icon: (
+            <>
+                <BiMessageDetail />
+            </>
+        ),
     },
     {
         id: 'vanligeSpr',
         navn: 'Vanlige spørsmål',
-        icon: VscQuestion,
+        icon: (
+            <>
+                <VscQuestion />
+            </>
+        ),
     },
 ];
 
