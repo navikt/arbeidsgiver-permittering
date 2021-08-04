@@ -75,7 +75,7 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || gituhub.ref == 'refs/head/ny-namespace'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
