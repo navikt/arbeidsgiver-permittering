@@ -75,14 +75,14 @@ jobs:
 
   deploy-to-dev-gcp:
     name: Deploy to dev-gcp
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ny-namespace'
     needs: compile-test-and-build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: dev-gcp
           VAR: version=${{ env.APP_IMAGE }}
           RESOURCE: nais/dev-gcp.yaml
@@ -97,7 +97,7 @@ jobs:
       - uses: actions/checkout@v1
       - uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_KEY_TEAM }}
           CLUSTER: prod-gcp
           VAR: version=${{ env.APP_IMAGE }}
           RESOURCE: nais/prod-gcp.yaml

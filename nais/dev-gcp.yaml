@@ -2,12 +2,12 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: arbeidsgiver-permittering
-  namespace: arbeidsgiver
+  namespace: permittering-og-nedbemanning
   labels:
-    team: arbeidsgiver
+    team: permittering-og-nedbemanning
 spec:
   image: {{ version }}
-  team: arbeidsgiver
+  team: permittering-og-nedbemanning
   port: 3000
   ingresses:
     - https://arbeidsgiver-permittering.dev.nav.no/arbeidsgiver-permittering
