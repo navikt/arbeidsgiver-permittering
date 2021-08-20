@@ -31,7 +31,7 @@ const sanityQuery = () =>
                 return `*[_type == '${queryfragment}' ||`;
             }
             return index === template.sanityQueryKeys().length - 1
-                ? `_type == '${queryfragment}'] | order(_type, priority)`
+                ? `_type == '${queryfragment}' && !(_id in path("drafts.**"))] | order(_type, priority)`
                 : `_type == '${queryfragment}' ||`;
         })
         .join(' ');
@@ -39,6 +39,7 @@ const sanityQuery = () =>
 const checkbackupCacheInnhold = (res, fetchError) => {
     const cacheBackupInnhold = backupCacheInnhold.get(backupCacheInnholdKey);
     if (cacheBackupInnhold) {
+        mainCacheInnhold.flushAll();
         mainCacheInnhold.set(mainCacheInnholdKey, cacheBackupInnhold);
         res.send(cacheBackupInnhold);
     } else {
@@ -52,8 +53,12 @@ const fetchInnhold = (res) => {
     client
         .fetch(query)
         .then((result) => {
+            mainCacheInnhold.flushAll();
+            backupCacheInnhold.flushAll();
+
             mainCacheInnhold.set(mainCacheInnholdKey, result);
             backupCacheInnhold.set(backupCacheInnholdKey, result);
+
             res.send(sendDataObj(result));
         })
         .catch((error) => {
