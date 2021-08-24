@@ -23,8 +23,8 @@ const sendDataObj = (json) => ({
     env: [process.env.SANITY_PROJECT_ID, process.env.SANITY_DATASET],
 });
 
-const sanityQuery = () => {
-    const query = template
+const sanityQuery = () =>
+    template
         .sanityQueryKeys()
         .map((queryfragment, index) => {
             if (index === 0) {
@@ -35,8 +35,6 @@ const sanityQuery = () => {
                 : `_type == '${queryfragment}' ||`;
         })
         .join(' ');
-    return query;
-};
 
 const checkbackupCacheInnhold = (res, fetchError) => {
     const cacheBackupInnhold = backupCacheInnhold.get(backupCacheInnholdKey);
