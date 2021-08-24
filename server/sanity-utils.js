@@ -23,18 +23,20 @@ const sendDataObj = (json) => ({
     env: [process.env.SANITY_PROJECT_ID, process.env.SANITY_DATASET],
 });
 
-const sanityQuery = () =>
-    template
+const sanityQuery = () => {
+    const query = template
         .sanityQueryKeys()
         .map((queryfragment, index) => {
             if (index === 0) {
-                return `*[_type == '${queryfragment}' ||`;
+                return `*[(_type == '${queryfragment}' ||`;
             }
             return index === template.sanityQueryKeys().length - 1
-                ? `_type == '${queryfragment}'] | order(_type, priority)`
+                ? `_type == '${queryfragment}') && !(_id in path('drafts.**'))] | order(_type, priority)`
                 : `_type == '${queryfragment}' ||`;
         })
         .join(' ');
+    return query;
+};
 
 const checkbackupCacheInnhold = (res, fetchError) => {
     const cacheBackupInnhold = backupCacheInnhold.get(backupCacheInnholdKey);
