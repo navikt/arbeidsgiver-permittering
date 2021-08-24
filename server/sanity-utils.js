@@ -28,10 +28,10 @@ const sanityQuery = () =>
         .sanityQueryKeys()
         .map((queryfragment, index) => {
             if (index === 0) {
-                return `*[_type == '${queryfragment}' ||`;
+                return `*[(_type == '${queryfragment}' ||`;
             }
             return index === template.sanityQueryKeys().length - 1
-                ? `_type == '${queryfragment}'] | order(_type, priority)`
+                ? `_type == '${queryfragment}') && !(_id in path('drafts.**'))] | order(_type, priority)`
                 : `_type == '${queryfragment}' ||`;
         })
         .join(' ');
