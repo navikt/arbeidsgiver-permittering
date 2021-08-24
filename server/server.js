@@ -91,9 +91,11 @@ const startServer = () => {
     addHeadersForCertainRequests();
 
     server.get(`${BASE_PATH}/innhold/`, (req, res) => {
+        console.log('Henter sanitydata');
         const cacheInnhold = sanity.mainCacheInnhold.get(
             sanity.mainCacheInnholdKey
         );
+        console.log('er det cachet?', cacheInnhold);
         cacheInnhold
             ? res.send(sendDataObj(cacheInnhold))
             : sanity.fetchInnhold(res);
