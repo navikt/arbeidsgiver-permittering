@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 const buildPath = path.join(__dirname, '../build');
 const BASE_PATH = '/arbeidsgiver-permittering';
 const KALKULATOR_URL = process.env.KALKULATOR_URL;
+const NY_OMSTILLING_URL = process.env.NY_OMSTILLING_URL;
 
 const sendDataObj = (json) => ({
     data: json,
@@ -99,7 +100,9 @@ const startServer = () => {
             : sanity.fetchInnhold(res);
     });
 
-    server.use(BASE_PATH + '/', express.static(buildPath, { index: false }));
+    server.get(BASE_PATH + '/*', (req, res) =>
+        res.redirect(NY_OMSTILLING_URL)
+    );
 
     server.get(`${BASE_PATH}/internal/isAlive`, (req, res) =>
         res.sendStatus(200)

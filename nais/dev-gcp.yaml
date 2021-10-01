@@ -34,3 +34,5 @@ spec:
       value: "60"
     - name: KALKULATOR_URL
       value: https://permittering-kalkulator.dev.nav.no/permittering-kalkulator/
+    - name: NY_OMSTILLING_URL
+      value: https://permittering-og-omstilling.dev.nav.no/permittering-og-omstilling/permittering
