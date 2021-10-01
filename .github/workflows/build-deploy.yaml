@@ -43,13 +43,21 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build container image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
+      # - name: Build container image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: ./
+      #     push: true
+      #     tags: |
+      #       ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
+      - name: Build tag and push Docker container
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker build . -t ${APP_IMAGE}
+          echo ${GITHUB_TOKEN}
+          echo ${APP_IMAGE}
+          docker push ${APP_IMAGE}
 
       - name: Sett miljøvariabel COMMIT
         run: echo "COMMIT=$(git rev-parse HEAD)" >> $GITHUB_ENV
