@@ -55,17 +55,14 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
-          push: true
-          tags: ${{ env.APP_IMAGE }} 
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+      - name: Build tag and push Docker container
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker build . -t ${APP_IMAGE}
+          echo ${GITHUB_TOKEN}
+          echo ${APP_IMAGE}
+          docker push ${APP_IMAGE}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
