@@ -100,6 +100,10 @@ const startServer = () => {
             : sanity.fetchInnhold(res);
     });
 
+    server.get(BASE_PATH, (req, res) =>
+        res.redirect(NY_OMSTILLING_URL)
+    );
+
     server.get(BASE_PATH + '/*', (req, res) =>
         res.redirect(NY_OMSTILLING_URL)
     );
