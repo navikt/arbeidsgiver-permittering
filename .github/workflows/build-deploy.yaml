@@ -55,14 +55,16 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build tag and push Docker container
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker build . -t ${APP_IMAGE}
-          echo ${GITHUB_TOKEN}
-          echo ${APP_IMAGE}
-          docker push ${APP_IMAGE}
+      - name: Build container image
+        uses: docker/build-push-action@v2
+        with:
+          context: app
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:latest
+          cache-from: type=registry,ref=${{ github.repository }}/arbeidsgiver-permittering:latest
+          cache-to: type=inline
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
