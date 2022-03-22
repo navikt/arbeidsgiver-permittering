@@ -9,7 +9,6 @@ Produksjonsmiljø: `https://arbeidsgiver.nav.no/arbeidsgiver-permittering`
 
 Applikasjonen bygger på Node, React og Typescript.
 
-
 For å komme i gang med applikasjonen, last ned repo
 <br /><br />
 
