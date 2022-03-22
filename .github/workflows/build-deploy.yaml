@@ -3,7 +3,7 @@ name: Bygg alle brancher. Deploy master branch
 on: [push]
 
 env:
-  APP_IMAGE: ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
+  APP_IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
   # APP_IMAGE: docker.pkg.github.com/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
 
 jobs:
@@ -50,7 +50,7 @@ jobs:
           context: ./
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
       - name: Build tag and push Docker container
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
