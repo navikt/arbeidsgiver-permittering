@@ -2,23 +2,13 @@ require('./set-env-variables');
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
 const express = require('express');
-const sanity = require('./sanity-utils');
 const template = require('./template');
-const { getHtmlWithDecorator } = require('./decorator-utils');
-const path = require('path');
 const helmet = require('helmet');
 
 const server = express();
 const PORT = process.env.PORT || 3000;
-const buildPath = path.join(__dirname, '../build');
 const BASE_PATH = '/arbeidsgiver-permittering';
-const KALKULATOR_URL = process.env.KALKULATOR_URL;
 const NY_OMSTILLING_URL = process.env.NY_OMSTILLING_URL;
-
-const sendDataObj = (json) => ({
-    data: json,
-    env: [process.env.SANITY_PROJECT_ID, process.env.SANITY_DATASET],
-});
 
 const addHeadersForCertainRequests = () =>
     server.use((req, res, next) => {
@@ -91,22 +81,9 @@ const startServer = () => {
 
     addHeadersForCertainRequests();
 
-    server.get(`${BASE_PATH}/innhold/`, (req, res) => {
-        const cacheInnhold = sanity.mainCacheInnhold.get(
-            sanity.mainCacheInnholdKey
-        );
-        cacheInnhold
-            ? res.send(sendDataObj(cacheInnhold))
-            : sanity.fetchInnhold(res);
-    });
+    server.get(BASE_PATH, (req, res) => res.redirect(NY_OMSTILLING_URL));
 
-    server.get(BASE_PATH, (req, res) =>
-        res.redirect(NY_OMSTILLING_URL)
-    );
-
-    server.get(BASE_PATH + '/*', (req, res) =>
-        res.redirect(NY_OMSTILLING_URL)
-    );
+    server.get(BASE_PATH + '/*', (req, res) => res.redirect(NY_OMSTILLING_URL));
 
     server.get(`${BASE_PATH}/internal/isAlive`, (req, res) =>
         res.sendStatus(200)
@@ -114,21 +91,6 @@ const startServer = () => {
     server.get(`${BASE_PATH}/internal/isReady`, (req, res) =>
         res.sendStatus(200)
     );
-    server.get(`${BASE_PATH}/kalkulator`, (req, res) =>
-        res.redirect(KALKULATOR_URL)
-    );
-
-    server.get(BASE_PATH + '/*', async (req, res) => {
-        try {
-            res.send(await getHtmlWithDecorator(buildPath + '/index.html'));
-        } catch (e) {
-            console.error(e);
-            console.warn(
-                'Kunne ikke hente dekoratør (header/footer). Appen serves uten dekoratør.'
-            );
-            res.sendFile(buildPath + '/index.html');
-        }
-    });
 
     server.listen(PORT, () => {
         console.log('Server listening on port', PORT);
