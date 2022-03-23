@@ -3,8 +3,8 @@ name: Bygg alle brancher. Deploy master branch
 on: [push]
 
 env:
-  APP_IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
-  # APP_IMAGE: docker.pkg.github.com/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
+  # APP_IMAGE: ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
+  APP_IMAGE: docker.pkg.github.com/${{ github.repository }}/arbeidsgiver-permittering-redirect:${{ github.sha }}
 
 jobs:
   compile-test-and-build:
@@ -37,36 +37,36 @@ jobs:
       - name: Bygg (yarn run build)
         run: yarn run build
 
-      - name: Login to ghcr.io
-        uses: docker/login-action@v1 
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Login to ghcr.io
+      #   uses: docker/login-action@v1 
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.repository_owner }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build container image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-      - name: Build tag and push Docker container
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker build . -t ${APP_IMAGE}
-          echo ${GITHUB_TOKEN}
-          echo ${APP_IMAGE}
-          docker push ${APP_IMAGE}
+      # - name: Build container image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: ./
+      #     push: true
+      #     tags: |
+      #       ghcr.io/${{ github.repository }}/arbeidsgiver-permittering:${{ github.sha }}
       # - name: Build tag and push Docker container
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: |
       #     docker build . -t ${APP_IMAGE}
-      #     echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
+      #     echo ${GITHUB_TOKEN}
       #     echo ${APP_IMAGE}
       #     docker push ${APP_IMAGE}
+      - name: Build tag and push Docker container
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker build . -t ${APP_IMAGE}
+          echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
+          echo ${APP_IMAGE}
+          docker push ${APP_IMAGE}
 
       - name: Sett miljøvariabel COMMIT
         run: echo "COMMIT=$(git rev-parse HEAD)" >> $GITHUB_ENV
