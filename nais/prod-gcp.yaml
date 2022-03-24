@@ -23,16 +23,9 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: ueom5842.api.sanity.io
         - host: www.nav.no
   envFrom:
     - secret: arbeidsgiver-permittering-secrets
   env:
-    - name: SANITY_CACHE_TTL
-      value: "600"
-    - name: SANITY_CACHE_CHECK
-      value: "60"
-    - name: KALKULATOR_URL
-      value: https://arbeidsgiver.nav.no/permittering-kalkulator
     - name: NY_OMSTILLING_URL
       value: https://arbeidsgiver.nav.no/permittering-og-omstilling/permittering
