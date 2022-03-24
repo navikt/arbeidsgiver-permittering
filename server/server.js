@@ -81,9 +81,15 @@ const startServer = () => {
 
     addHeadersForCertainRequests();
 
-    server.get(BASE_PATH, (req, res) => res.redirect(NY_OMSTILLING_URL));
+    server.get(BASE_PATH, (req, res) => {
+        console.log('utdatert permitteringsside besokt');
+        res.redirect(NY_OMSTILLING_URL);
+    });
 
-    server.get(BASE_PATH + '/*', (req, res) => res.redirect(NY_OMSTILLING_URL));
+    server.get(BASE_PATH + '/*', (req, res) => {
+        console.log('utdatert permitteringsside besokt');
+        res.redirect(NY_OMSTILLING_URL);
+    });
 
     server.get(`${BASE_PATH}/internal/isAlive`, (req, res) =>
         res.sendStatus(200)
