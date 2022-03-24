@@ -8,4 +8,3 @@ const corsWhitelist = [
 ];
 
 module.exports.corsWhitelist = corsWhitelist;
-module.exports.sanityQueryKeys = sanityQueryKeys;
